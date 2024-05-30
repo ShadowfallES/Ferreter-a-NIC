@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restablecer Contraseña</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link href="{{ url_for('static',filename='css/form.css')}}" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <div class="Contenedor vh-100">
+        <div class="card" style="width: 35rem;">
+            <div class="card-body">
+                {% if Form_actual == 'Reset' %}
+                
+                <h3 class="text-center card-title text-light">Restablecer tu contraseña</h3>
+                
+                <p class="card-text text-light">¿Perdiste tu contraseña? Por favor, introduzca su dirección de correo electrónico. 
+                recibirá un enlace para crear una nueva contraseña por correo electrónico</p>
+                
+                <form action="/forgotpassword" method="POST">
+                    <div class="Datos_request">
+                        <input type="email" class="text-light g-0" autocomplete="off" name="correo" required>
+                        <span></span>
+                        <label>Correo</label>
+                    </div>
+                    <div class="btn d-block">
+                        <button type="submit" class="btn btn-primary btn-lg">Restablecer contraseña</button>
+                    </div>
+                </form>
+                {% else %}
+                    <p class="card-text text-light">Hemos enviado un correo de recuperacion a su bandeja, Gracias por su tiempo!.</p>
+                    <div class="btn d-block">
+                        <a href="/account/login"><button class="btn btn-primary btn-lg">Regresar 👈</button></a>
+                    </div>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,286 @@
+@import url('https://fonts.googleapis.com/css2?family=Bakbak+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Volkhov:ital,wght@1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Acme&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+*{
+    padding: 0%;
+    margin: 0%;
+}
+/* ---------------------------------------------------
+    CARD ESTILO
+----------------------------------------------------- */
+.card-img-top{
+    padding: 0% !important;
+}
+.text_p{
+  font-family: 'Bakbak One', cursive;
+  font-size: 1.3rem;
+}
+.text_precio{
+  font-family: 'Volkhov', serif;
+  font-size: 1.2rem;
+}
+.text_producto{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 3rem;
+}
+.text_category{
+  font-family: 'Bree Serif', serif;
+  font-size: 2rem;
+}
+
+/* ---------------------------------------------------
+    CAROUSEL ESTILO
+----------------------------------------------------- */
+.carousel-inner .carousel-item  img {
+    object-fit: fill !important;
+    max-height: 50vh;
+    font-family:'Courier New', Courier, monospace;
+  } 
+a{
+    text-decoration-line: none !important;
+}
+
+/* ---------------------------------------------------
+    CARRITO ESTILO
+----------------------------------------------------- */
+.cart {
+    margin: auto;
+    border-radius: 4px;
+    height: 60px;
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #efefef;
+    margin: 0px;
+    font-size: 20px;
+    background-color: #f8f9fa00;
+    color: #efefef;
+  }
+
+
+/* ---------------------------------------------------
+    CONTENIDO ESTILO
+----------------------------------------------------- */
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+
+/* ---------------------------------------------------
+    ERROR 404 ESTILO
+----------------------------------------------------- */
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fff;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+
+/* ---------------------------------------------------
+    SIDEBAR ESTILO
+----------------------------------------------------- */
+
+#sidebar {
+    background: #f8f9fa;
+    color: #fff;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -230px;
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    padding-left: 50px;
+    padding-right: 55px;
+}
+
+#sidebar ul p {
+    color: #fff;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 1.3em;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    color: #fff;
+    background: gray;
+}
+
+#sidebar 
+#sidebar a[data-toggle="collapse"] {
+    position: relative;
+}
+
+#sidebar ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+}
+
+/* ---------------------------------------------------
+    FOOTER ESTILO
+----------------------------------------------------- */
+.footer {
+    background: #616467;
+    color: #ffffff;
+    font-size: 14px;
+    padding: 60px 0 20px;
+  }
+  
+  .footer p {
+    color: #fff;
+  }
+  
+  .footer h3 {
+    color: #ffffff;
+    margin-bottom: 20px;
+  }
+  
+  .footer-col-1,
+  .footer-col-2,
+  .footer-col-3{
+    min-width: 250px;
+    margin-bottom: 20px;
+  }
+  
+  .footer-col-1 {
+    flex-basis: 20%;
+  }
+  
+  .footer-col-2 {
+    flex: 10%;
+  }
+  
+  .footer-col-2 img {
+    width: 180px;
+    margin-bottom: 20px;
+  }
+  
+  .footer-col-3{
+    flex-basis: 5%;
+  }
+  
+  .footer ul {
+    list-style-type: none;
+    text-align: center;
+  }
+  .footer ol, ul{
+      padding-left: 0 !important;
+  }
+  
+  .logo {
+    margin-top: 20px;
+  }
+  .logo img {
+    width: 140px;
+  }
+  
+  .footer hr {
+    border: none;
+    background: #b5b5b5;
+    height: 1px;
+    margin: 20px 0;
+  }
+  
+  .menu-icon {
+    width: 28px;
+    margin-left: 20px;
+    display: none;
+  }
+
+/*imagen de producto*/
+.cover .img_producto{
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+@supports(object-fit: fill){
+.cover .img_producto{
+  object-fit: contain;
+  object-position: center center;
+}
+}
+
+/*imagen de Carousel*/
+.cover .img_carousel{
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+@supports(object-fit: fill){
+.cover .img_carousel{
+  object-fit: contain;
+  object-position: center center;
+}
+}
+
+
+/* ---------------------------------------------------
+    MEDIA 
+----------------------------------------------------- */
+
+@media screen and (max-width: 900px) {
+    #sidebar {
+        margin-left: -230px;
+        
+    }
+    #sidebar.active {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+    html .producto-title {
+        font-size: 1.3rem;
+        padding: auto;
+    }
+    .footer-col-1,
+    .footer-col-2,
+    .footer-col-3{
+        flex-basis: auto;
+      }
+      
+    .foo nav ul {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        background: #333;
+        width: auto;
+        overflow: hidden;
+        transition: max-height 0.5s;
+      }
+      .foo nav ul li {
+        display: block;
+        margin-right: 50px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    
+      .foo nav ul li a {
+        color: #fff;
+      }
+      .menu-icon {
+        display: block;
+        cursor: pointer;
+      }
+}

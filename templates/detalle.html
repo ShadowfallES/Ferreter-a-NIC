@@ -1,0 +1,106 @@
+{% extends 'base/base.html' %}
+
+{% block title %}- {{ncategoria}}{% endblock  %}
+{%block style%}
+
+<link href="{{ url_for('static',filename='css/Detail_producto.css')}}" rel="stylesheet" type="text/css">
+
+{%endblock%}
+    
+
+    
+{% block main %}
+  <div class="col">
+    <div class = "card-body">
+      <div class = "card">
+        <!-- card Izquierda -->
+        <div class = "producto-imgs">
+          <div class = "img-display">
+            <div class = "img-showcase">
+              <img src = "{{producto.imagen}}" alt = "Producto imagenes">
+              <img src = "{{producto.imagen}}" alt = "Producto imagenes">
+              <img src = "{{producto.imagen}}" alt = "Producto imagenes">
+            </div>
+          </div>
+          <div class = "img-selector">
+            <div class = "img-item">
+              <a href = "#" data-id = "1">
+                <img src = "{{producto.imagen}}" alt = "Producto imagenes">
+              </a>
+            </div>
+            <div class = "img-item">
+              <a href = "#" data-id = "2">
+                <img src = "{{producto.imagen}}" alt = "Producto imagenes">
+              </a>
+            </div>
+            <div class = "img-item">
+              <a href = "#" data-id = "3">
+                <img src = "{{producto.imagen}}" alt = "Producto imagenes">
+              </a>
+            </div>
+          </div>
+        </div>
+        <!-- card Derecha -->
+        <div class = "producto-content">
+          <h2 class = "producto-title">{{producto.nombre}}</h2>
+          <a href ="#" class = "producto-link">Visita {{producto.nmarca}} para saber mas</a>
+    
+          <div class = "producto-precio">
+            <p class = "precio">Precio: $ <span>{{producto.precio_compra}}</span></p>
+          </div>
+    
+          <div class = "producto-detail">
+            <h2>Acerca de este Producto: </h2>
+            <p>{{producto.descripcion}}</p>
+            <ul>
+              <li>Fabricante: <span>{{producto.nmarca}}</span></li>
+              {% if producto.stock > 0%}
+              <li>Disponibilidad: <span>Si</span></li>
+              {% else %}
+              <li>Disponibilidad: <span>No</span></li>
+              {% endif %}
+              <li>Categoria: <span>{{producto.nsubcategoria}}</span></li>
+            </ul>
+          </div>
+    
+          <div class = "compra-info">
+            {% if producto.stock > 0 %}
+          <form action="/add/cart/{{producto['id_producto']}}" method="GET">
+                	<button type = "submit" class = "btn addcart">
+                        Añadir al carrito <i class = "fas fa-shopping-cart"></i>
+                    </button>    
+          </form>
+              {% else %}
+                <button type = "button" class = "btn disabled " disabled>
+                    Añadir al carrito <i class = "fas fa-shopping-cart"></i>
+                </button>
+              {% endif %}
+            
+          </div>
+    
+          <div class = "social-links">
+            <p>Compartir: </p>
+            <a href = "#">
+              <i class = "fab fa-facebook-f"></i>
+            </a>
+            <a href = "#">
+              <i class = "fab fa-twitter"></i>
+            </a>
+            <a href = "#">
+              <i class = "fab fa-instagram"></i>
+            </a>
+            <a href = "#">
+              <i class = "fab fa-whatsapp"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+    
+{%endblock%}
+
+{% block js %}
+<script src="{{ url_for('static',filename='js/Producto_detail.js')}}"></script>
+{% endblock%}

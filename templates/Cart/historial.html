@@ -1,0 +1,29 @@
+{% extends 'base/base.html' %}
+
+{% block main %}
+<div class="text-center text_producto"> Historial de compras</div>
+<table>
+    <table class="table table-responsive">
+        <thead class="thead-dark bg-dark text-light text-center">
+            <tr>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            {% for pedidos in pedido %}
+            {% if pedidos.confirmar == True %}
+            <tr class="text-center">
+                <td>{{pedidos.nombre}}</td>
+                <td>{{pedidos.cantidad}}</td>
+                <td>{{pedidos.precio_unidad}}</td>
+                <td>{{pedidos.fecha}}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'base/base.html' %}
+
+{% block main %}
+<header class="container">
+    {%with messages = get_flashed_messages(with_categories=true)%}
+        {%if messages %}
+            {%for category, message in messages%}
+                <div class="alert {{category}} alert-dismissible fade show text-center" role="alert">
+                    <!-- desplega el mensaje -->
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {%endfor%}
+        {%endif%}
+    {%endwith%}
+    </header>
+<div class="text-center text_producto"> Carrito de compras</div>
+<table>
+    <table class="table table-responsive">
+        <thead class="thead-dark bg-dark text-light text-center">
+            <tr>
+                <th scope="col">Borrar pedido</th>
+                <th scope="col">Producto</th>
+                <th scope="col">Cantidad</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Confirmar pedido</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pedidos in pedido %}
+            {% if pedidos.confirmar == False %}
+            <tr class="text-center">
+                <th scope="row">
+                    <form action="/delete/cart/{{pedidos['id_carrito']}}" method="post">
+                        <button class="btn btn-danger">Borrar</button>
+                    </form>
+                </th>
+                <td>{{pedidos.nombre}}</td>
+                <td>{{pedidos.cantidad}}</td>
+                <td>{{pedidos.precio_unidad}}</td>
+                <form action="/confirm/cart/{{pedidos['id_carrito']}}" method="post">
+                    <td><button class="btn btn-success">Confirmar</button></td>
+                </form>
+            </tr>
+            {% endif %}
+            {% endfor %}
+        </tbody>
+</table>
+{% endblock %}

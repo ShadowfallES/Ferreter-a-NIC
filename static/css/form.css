@@ -1,0 +1,101 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans:wght@500&display=swap');
+*{
+    padding: 0%;
+    margin: 0%;
+}
+body{
+    font-family: 'Montserrat', sans-serif;
+    background-image: url("/static/img/Ferreteria.webp");
+    background-size: cover;
+  }
+.contenedor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.Contenedor{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .Contenedor h1{
+    text-align: center;
+    padding: 0 0 20px 0;
+  }
+  .Contenedor form{
+      padding: 0 40px;
+      box-sizing: border-box;
+      
+    }
+  form .Datos_request{
+      position: relative;
+      border-bottom: 2px solid #adadad;
+      margin: 30px 0;
+  }
+  .Datos_request input{
+      width: 100%;
+      padding: 0 5px;
+      height: 40px;
+      font-size: 16px;
+      border: none;
+      background: none;
+      outline: none;
+    }
+  .Datos_request label{
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    color: #adadad;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: .5s;
+  }
+  .Datos_request span::before{
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: #2691d9;
+  transition: .5s;
+  }
+  .Datos_request input:focus ~ label,
+  .Datos_request input:valid ~ label {
+    top: -5px;
+    color: #2691d9;
+  }
+  .Datos_request input:focus ~ span::before,
+  .Datos_request input:valid ~ span::before {
+  width: 100%;
+  }
+  .btn1{         
+  display: flex;
+  justify-content:center;
+  align-items:center;
+  }
+  .link_ref{
+  margin: 30px 0;
+  text-align: center;
+  font-size: 16px;
+  color: #666666;
+  }
+  .link_ref a{
+  color: #2691d9;
+  text-decoration: none;
+  }
+  .link_ref a:hover{
+  text-decoration: underline;
+  }
+  .pizzaN a{
+    font-size: 1.7rem;
+    font-family: 'Mochiy Pop P One', sans-serif;
+  }
+  h2{
+    font-family: 'Josefin Sans', sans-serif;
+  }
+.card{
+    background: rgba(13, 13, 13, 0.807) !important;
+  }

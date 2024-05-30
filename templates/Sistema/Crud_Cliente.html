@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD</title>
+    <link rel="shortcut icon" href="{{ url_for('static',filename='img/Logo.png')}}">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link href="{{ url_for('static',filename='css/style.css')}}" rel="stylesheet" type="text/css">
+
+    <!-- FONTAWESOME only -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+</head>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/"><img  src="{{ url_for('static',filename='img/Logo.png')}}" height="100" alt=""></a>
+            <button class="navbar-toggler bg-dark " type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"  aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                </ul>
+                <form class="d-flex col-lg-5" action="/busqueda" methods='GET'>
+                    <input class="form-control me-2 disabled" type="search" name="Search_producto" placeholder="Desactivado" aria-label="Search">
+                    <button class="btn btn-outline-primary disabled" type="submit"><i class="fas fa-search"></i></button>
+                </form>
+                </div>
+                <ul class="navbar-nav  d-flex mb-lg-0">
+                    {% if session['nombre'] %}
+                        <li class="nav-item dropdown">
+                        <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{session['nombre']}}
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                            {% if session['administrador'] %}
+                            <li><a class="dropdown-item" href="/Administrador/Cliente">Cliente</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Administrador/Sistema_de_inventario">Sistema de inventario</a></li>
+                            {% endif %}
+                            <li><a class="dropdown-item" href="/account/logout">Cerrar Sesion</a></li>
+                        </ul>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-dark text_category" style="font-size:1.2rem;"href="/account/login" id="navbarDropdown" role="button" aria-expanded="false">
+                            Iniciar sesion
+                        </a>
+                    {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<body>
+    {%with messages = get_flashed_messages(with_categories=true)%}
+        {%if messages %}
+            {%for category, message in messages%}
+                <div class="alert {{category}} alert-dismissible fade show text-center" role="alert">
+                    <!-- desplega el mensaje -->
+                    {{message}}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {%endfor%}
+        {%endif%}
+    {%endwith%}
+<!-- -------------------------------------------------------------SISTEMA-DE-INVENTARIO-------------------------------------------------------------- -->
+    <div class="container-fluid">
+        <div class="d-flex card p-1 mt-5">
+            <div class="card-title text-center"><h3>Sistema de <b>Usuario</b></h3></div>
+            <div class="d-flex m-1 justify-content-end">
+                <!-- Button trigger modal -->
+                <button class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop1"><i class="fas fa-plus-square"></i>&nbspAñadir</button>  
+            </div>
+            <div class="table-responsive">
+                <table  class="table table-hover mt-4">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Action</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col-4">Apellido</th>
+                            <th scope="col">Correo</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Cedula</th>
+                            <th scope="col">Rol</th>
+                          </tr>
+                    </thead>
+                    <tbody>
+                        {% for Clientes in Cliente %}
+                    
+                            <tr class=" justify-content-center">
+                                <th scope="row">
+                                    <form action="/Administrador/delete/cliente/{{Clientes['id_usuario']}}" method="post">
+                                        <button type="submit" class="btn btn-danger m-1" value="{{Clientes.id_usuario}}" ><i class="fas fa-trash-alt"></i></button>
+                                    </form>
+                                    <button class="btn btn-success m-1" data-bs-toggle="modal" data-bs-target="#staticBackdrop2{{Clientes.id_usuario}}" value="{{Clientes.id_usuario}}"><i class="fas fa-edit"></i></button> 
+                                </th>
+
+                                <th scope="row" class="col-2">{{Clientes.nombre}}</th>
+                                <td class="col-4">{{Clientes.apellido}}</td>
+                                <td><strong>{{Clientes.correo}}</strong></td>
+                                <td>{{Clientes.telefono}}</td>
+                                <td>{{Clientes.cedula}}</td>
+                                {% if Clientes.administrador == True  %}
+                                <td>Administrador</td>
+                                {% else %}
+                                <td>Cliente</td>
+                                {% endif %}  
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-center">
+                        {{  pagination.links  }}
+                    </ul>
+                  </nav>
+            </div>
+        </div>
+    </div>
+
+<!-- ---------------------------------------------------------------Modal-Agregar-Cliente----------------------------------------------------------------- -->
+<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+                    
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Agregar Cliente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form class="was-validated" action="/Administrador/agregar/cliente" method="POST">
+                <div class="modal-body">
+                    <div class="container-fluid">        
+                        <div class="mb-3">
+                            <label for="validationDefault04" class="form-label">Nombre</label>
+                            <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="Nombre" name="Nombre" required>
+                            <div class="invalid-feedback">
+                                Por favor ingrese su nombre.
+                            </div>
+                        </div>
+                                
+                        <div class="mb-3">
+                            <label for="validationDefault04" class="form-label">Apellido</label>
+                            <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="Apellido" name="Apellido" required>
+                            <div class="invalid-feedback">
+                                Por favor ingrese su apellido.
+                            </div>
+                        </div>
+                        <div class="row">                  
+                            <div class="mb-3">
+                                <label for="validationDefault04" class="form-label">Correo Electronico</label>
+                                <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="Correo" name="Correo" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese su correo.
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="validationDefault04" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control is-invalid" id="validationTextarea" placeholder="Contraseña" name="password" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese su contraseña.
+                                </div>
+                            </div>  
+
+                            <div class="mb-3">
+                                <label for="validationDefault04" class="form-label">Telefono</label>
+                                <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="Telefono" name="Telefono" required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese su numero de telefono.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="validationDefault04" class="form-label">No. Cedula</label>
+                            <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="001-000000-0016D" name="Cedula" required>
+                            <div class="invalid-feedback">
+                                Por favor ingrese su Cedula.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="validationDefault04" class="form-label">Rol</label>
+                            <select class="form-select" id="validationDefault04" name="Rol" required>
+                                <option selected disabled value="selecciona">Selecciona un rol</option>
+                                <option value="True">Administrador</option>
+                                <option value="False">Cliente</option> 
+                            </select>
+                        </div>  
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">Agregar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>  
+
+<!-- ---------------------------------------------------------------Modal-Actualizar----------------------------------------------------------------- -->
+    {% for datos in Cliente %}
+    <div class="modal fade" id="staticBackdrop2{{datos.id_usuario}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                        
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Editar Datos</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form class="was-validated" action="/Administrador/update/cliente/{{datos['id_usuario']}}" method="POST">
+                    <div class="modal-body">
+                        <div class="container-fluid">        
+                            <div class="mb-3">
+                                <label for="validationDefault04" class="form-label">Nombre</label>
+                                <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="Nombre" name="NombreU" value="{{datos.nombre}}"required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese su nombre.
+                                </div>
+                            </div>
+                                    
+                            <div class="mb-3">
+                                <label for="validationDefault04" class="form-label">Apellido</label>
+                                <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="Apellido" name="Apellido" value="{{datos.apellido}}"required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese su apellido.
+                                </div>
+                            </div>
+                            <div class="row">                  
+                                <div class="mb-3">
+                                    <label for="validationDefault04" class="form-label">Correo Electronico</label>
+                                    <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="Correo" name="Correo" value="{{datos.correo}}"required>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese su correo.
+                                    </div>
+                                </div>
+                                                    
+                                <div class="mb-3">
+                                    <label for="validationDefault04" class="form-label">Telefono</label>
+                                    <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="Telefono" name="Telefono" value="{{datos.telefono}}"required>
+                                    <div class="invalid-feedback">
+                                        Por favor ingrese su numero de telefono.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="validationDefault04" class="form-label">No. Cedula</label>
+                                <input type="text" class="form-control is-invalid" id="validationTextarea" placeholder="001-000000-0016D" name="Cedula" value="{{datos.cedula}}"required>
+                                <div class="invalid-feedback">
+                                    Por favor ingrese su Cedula.
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="validationDefault04" class="form-label">Rol</label>
+                                <select class="form-select" id="validationDefault04" name="Rol" required>
+                                    {% if datos.administrador == True %}
+                                    <option selected  value="True">Administrador</option>
+                                    <option value="False">Cliente</option>
+                                    {% else %}
+                                    <option selected  value="False">Cliente</option>
+                                    <option value="True">Administrador</option>
+                                    {% endif %}
+                                    
+                                    
+                                </select>
+                                <div class="invalid-feedback">
+                                    Por favor Elija una Sub Categoria.
+                                </div>
+                            </div>  
+                
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+<!-- ------------------------------------------------------------Modal-Confirmar-Borrar-------------------------------------------------------------- -->
+    <!-- <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+</body>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</html>

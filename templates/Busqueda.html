@@ -1,0 +1,43 @@
+{% extends "base/base.html" %}
+
+<!-- ----------------------------------------------BOOTSTRAP-Producto-------------------------------------------------------------- -->
+{% block main %}
+    <div class="text-center text_producto"> Producto</div>
+    <hr>
+        <div class="album py-5">
+            <div class="container">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 ">
+                    {% for mains in main %}
+                        <div class="col">
+                            <div class="card shadow-sm">
+                                <a href="/producto/detalle/{{mains['nombre']}}" >
+                                    <div class="card-body">
+                                        <div class="cover">
+                                            <img class="card-img-top img-fluid img_producto" src="{{mains.imagen}}" alt="Imagen">
+                                        </div>
+                                        <table class="table ">
+                                            <tr>
+                                                <th scope="col" class="bg-dark">
+                                                <h5 class="card-title text-center text_p text-light">{{ mains.nombre}}</h5>
+                                            </th>
+
+                                        </table>
+                                        <p class="card-text text_p" style="font-size: 1.3rem;">{{mains.nmarca}}</p>
+                                        <div class="col">
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="text-dark h-100 text_precio">
+                                                $ {{mains.precio_compra}}
+                                            </div>
+                                            <div>
+                                                <button class="btn btn-danger"><a href="/add/deseos?id={{mains['id_producto']}}" class="text-light"><i class="far fa-heart"></i></a></button>
+                                            </div>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>      
+        </div>
+    </div>
+{% endblock  %}
